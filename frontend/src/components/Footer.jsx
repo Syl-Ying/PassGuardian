@@ -1,18 +1,11 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer>
-        <Container>
-            <Row>
-                <Col className='text-center py-3'>
-                    <p>Password Manager &copy; {currentYear}</p>
-                </Col>
-            </Row>
-        </Container>
+    <footer className='fixed bottom-0 w-full py-2 text-center text-white bg-[#9F7AEA]' >
+      <p>PasswordGuardian &copy; {currentYear} All Rights Reserved.</p>
     </footer>
   )
 }

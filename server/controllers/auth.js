@@ -21,13 +21,19 @@ export const signup = (req, res) => {
         const emailData = {
             from: process.env.EMAIL_FROM,
             to: email,
-            subject: "ACCOUNT ACTIVATION LINK",
+            subject: "Verify Your Email",
             html: `
-                      <h1>Please use the following link to activate your account</h1>
-                      <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>
-                      <hr />
-                      <p>This email may contain sensitive information</p>
-                      <p>${process.env.CLIENT_URL}</p>
+                    <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+                        <h2 style="color: #635bff;">PassGuardian</h2>
+                        <p>Thanks for creating a PassGuardian account. Verify your email so you can get up and running quickly.</p>
+                        
+                        <a href=${process.env.CLIENT_URL}/auth/activate/${token} style="background-color: #635bff; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 10px;">Verify email</a>
+                        
+                        <p>Once your email is verified, you can start setting up your account.</p>
+                        
+                        <hr style="margin-top: 30px;"/>
+                        <p style="color: grey; font-size: 0.8em;">PassGuardian</p>
+                    </div>
                   `,
         };
 

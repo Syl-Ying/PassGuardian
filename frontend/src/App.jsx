@@ -1,20 +1,15 @@
-import Footer from "./components/Footer.jsx";
-import Header from "./components/Header.jsx";
-import { Container } from "react-bootstrap";
+import { Outlet } from "react-router-dom";
+import Layout from "./components/Layout.jsx";
 
 function App() {
 
   return (
-    <>
-      <Header />
-      <main className="">
-        <Container>
-          <h1>Test</h1>
-        </Container>
-      </main>
-      <Footer />
+    <> 
+      <Layout>
+          <Outlet />
+      </Layout>
     </>
   )
 }
 
-export default App
+export default App;
