@@ -1,6 +1,6 @@
 import cookie from "js-cookie";
 
-// set in cookie
+// set cookie
 export const setCookie = (key, value) => {
     if (window !== 'undefined') {
         cookie.set(key, value, {
@@ -25,7 +25,7 @@ export const getCookie = key => {
     }
 };
 
-// set in localstorage
+// set localstorage
 export const setLocalStorage = (key, value) => {
     if (window !== 'undefined') {
         localStorage.setItem(key, JSON.stringify(value));
@@ -62,7 +62,7 @@ export const isAuth = () => {
     }
 };
 
-// sign out user
+// remove cookie and localStorage when sign out user 
 export const signout = next => {
     removeCookie('token');
     removeLocalStorage('user');
