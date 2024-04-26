@@ -2,10 +2,10 @@ import User from "../models/user.js";
 import sendEmailWithNodemailer from "../helpers/email.js";
 import jwt from 'jsonwebtoken';
 
-export const signup = (req, res) => {
+export const signup = async (req, res) => {
     const { username, email, password } = req.body;
 
-    User.findOne({ email }).exec().then((user) => {
+    await User.findOne({ email: email.toLowerCase() }).exec().then((user) => {
         if (user) {
             return res.status(400).json({
                 error: "Email has been registered",
@@ -76,11 +76,12 @@ export const accountActivation = (req, res) => {
     }
 };
 
-export const signin = (req, res) => {
+export const signin = async (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password);
 
     // check if user exists
-    User.findOne({ email }).exec()
+    await User.findOne({ email: email.toLowerCase() }).exec()
         .then(user => {
             if (!user) {
                 return res.status(400).json({

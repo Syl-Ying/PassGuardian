@@ -14,22 +14,25 @@ const Signin = () => {
     const { email, password } = values;
 
     const handleChange = name => event => {
-        // console.log(event.target.value);
         setValues({ ...values, [name]: event.target.value });
     };
 
     const clickSubmit = event => {
         event.preventDefault();
         axios({
-            method: 'POST',
+            method: 'post',
             url: `${import.meta.env.VITE_REACT_APP_API}/signin`,
-            data: { email, password }
+            data: { email, password },
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
         })
             .then(response => {
                 console.log('SIGNIN SUCCESS', response);
                 authenticate(response, () => {
                     setValues({ ...values,  email: '', password: '' });
-                    // toast.success(`Welcome back, ${response.data.user.username}!`);
+                    toast.success(`Welcome back, ${response.data.user.username}!`);
                 });
             })
             .catch(error => {

@@ -16,16 +16,14 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URI, {})
         .then(() => console.log("DB Connected"))
         .catch((err) => console.log("DB Connection Error => ", err));
 
 // middlewares
-app.use(cors());
 app.use(morgan('dev'));
-if (process.env.NODE_ENV = 'development') {
-    app.use(cors({ origin: `http://localhost:5173` }));
-}
+app.use(cors({credentials:true}));
+
 app.use(bodyParser.json());
 app.use(cookieParser);
 app.use('/api', authRoutes);
