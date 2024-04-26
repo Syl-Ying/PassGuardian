@@ -6,9 +6,11 @@ import mongoose from 'mongoose';
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+
 import authRoutes from './routes/auth.js';
 import recordRoutes from './routes/recordRoute.js';
 import { authentication } from './validators/auth.js';
+import { fileURLToPath } from 'url';
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -29,7 +31,10 @@ app.use(cookieParser);
 app.use('/api', authRoutes);
 app.use('/api/records', authentication, recordRoutes);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 let frontend_dir = path.join(__dirname, '..', 'frontend', 'dist')
+
 app.use(express.static(frontend_dir));
 app.get('*', function (req, res) {
     console.log("received request");
