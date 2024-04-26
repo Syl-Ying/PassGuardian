@@ -7,7 +7,10 @@ import Signup from './auth/Signup.jsx';
 import Signin from './auth/Signin.jsx';
 import Activate from './auth/Activate.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
+import PasswordPage from './components/PasswordPage.jsx';
+import RequireAuth from './auth/RequireAuth.jsx';
 import './index.css';
+
 
 const router = createBrowserRouter([
   {
@@ -30,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/auth/activate/:token",
         element:<Activate />,
+      },
+      {
+        path: "/password",
+        element: <RequireAuth><PasswordPage /></RequireAuth>,
       }
     ]
   },

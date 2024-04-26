@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from "axios";
+import { isAuth } from "./helpers";
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -43,13 +44,13 @@ const Signup = () => {
                 <input onChange={handleChange('username')} value={username} type="text" placeholder="Username" className="w-full px-2 py-1 border border-gray-400" />
             </div>
             <div className="mt-5">
-                <input onChange={handleChange('email')} value={email} type="text" placeholder="Email" className="w-full px-2 py-1 border border-gray-400" />
+                <input onChange={handleChange('email')} value={email} type="text" placeholder="Email" autoComplete="username" className="w-full px-2 py-1 border border-gray-400" />
             </div>
             <div className="mt-5">
-                <input onChange={handleChange('password')} value={password} type="password" placeholder="Password" className="w-full px-2 py-1 border border-gray-400" />
+                <input onChange={handleChange('password')} value={password} type="password" placeholder="Password" autoComplete="new-password" className="w-full px-2 py-1 border border-gray-400" />
             </div>
             <div className="mt-5">
-                <input type="password" placeholder="Confirm Password" className="w-full px-2 py-1 border border-gray-400" />
+                <input type="password" placeholder="Confirm Password" autoComplete="new-password" className="w-full px-2 py-1 border border-gray-400" />
             </div>
             
             <div className="mt-5">
@@ -64,6 +65,13 @@ const Signup = () => {
             </div>
         </form>
     );
+
+    // Once signed up, automatically sign in
+
+    // If user has signed in, redirect to password page
+    if (isAuth()) {
+        return <Navigate to="/password" />;
+    }
 
     return (
         <div className="col-md-6 offset-md-3">

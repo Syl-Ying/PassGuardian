@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from "axios";
+import { authenticate, isAuth } from "./helpers";
 
 const Signin = () => {
     const [values, setValues] = useState({
@@ -26,8 +27,10 @@ const Signin = () => {
         })
             .then(response => {
                 console.log('SIGNIN SUCCESS', response);
-                setValues({ ...values,  email: '', password: '' });
-                toast.success(`Welcome back, ${response.data.user.name}!`);
+                authenticate(response, () => {
+                    setValues({ ...values,  email: '', password: '' });
+                    // toast.success(`Welcome back, ${response.data.user.username}!`);
+                });
             })
             .catch(error => {
                 console.log('SIGNIN ERROR', error.response.data);
@@ -38,10 +41,10 @@ const Signin = () => {
     const signinForm = () => (
         <form>
             <div className="mt-5">
-                <input onChange={handleChange('email')} value={email} type="text" placeholder="Email" className="w-full px-2 py-1 border border-gray-400" />
+                <input onChange={handleChange('email')} value={email} type="text" placeholder="Email" autoComplete="username" className="w-full px-2 py-1 border border-gray-400" />
             </div>
             <div className="mt-5">
-                <input onChange={handleChange('password')} value={password} type="password" placeholder="Password" className="w-full px-2 py-1 border border-gray-400" />
+                <input onChange={handleChange('password')} value={password} type="password" placeholder="Password" autoComplete="current-password" className="w-full px-2 py-1 border border-gray-400" />
             </div>
             
             <div className="mt-5">
@@ -49,6 +52,11 @@ const Signin = () => {
             </div>
         </form>
     );
+    
+    // redirect to password page if user is already signed in
+    if (isAuth()) {
+        return <Navigate replate to="/password" />;
+    }
 
     return (
         <div className="col-md-6 offset-md-3">
