@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 import authRoutes from './routes/auth.js';
 import recordRoutes from './routes/recordRoute.js';
 import { authentication } from './validators/auth.js';
