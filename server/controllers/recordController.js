@@ -1,5 +1,7 @@
 import Record from '../models/record.js';
-import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+
+const key = process.env.CRYPTO_SECRET;
 
 // GET api/records/
 export const RecordList = async (req, res) => {
@@ -16,9 +18,11 @@ export const RecordList = async (req, res) => {
 // POST api/records/create
 export const RecordCreate = async (req, res) => {
     const { siteurl, username, password } = req.body;
-    // encrypt password
-    const salt = bcrypt.genSaltSync(15);
-    const hashed_password = bcrypt.hashSync(password, salt);
+    // encrypt AES password
+    const cipher = crypto.createCipher('aes192', key);
+    var crypted = cipher.update(password, 'utf8', 'hex');
+    crypted += cipher.final('hex');
+    const hashed_password = crypted;
     const record = new Record({
         siteurl,
         username,
@@ -45,8 +49,11 @@ export const RecordEdit = async (req, res) => {
     try {
         // hash updatred password
         if (Object.keys(updates).includes('password')) {
-            const salt = bcrypt.genSaltSync(15);
-            updates.password = bcrypt.hashSync(updates.password, salt);
+            // encrypt AES password
+            const cipher = crypto.createCipher('aes192', key);
+            var crypted = cipher.update(updates.password, 'utf8', 'hex');
+            crypted += cipher.final('hex');
+            updates.password = crypted;
         }
 
         const record = await Record.findOneAndUpdate({_id: recordId }, updates, options);
@@ -70,5 +77,21 @@ export const RecordDelete = async (req, res) => {
         catch (error) {
             res.status(404).json({ "success": false, "message": "Record Not Found" })
         }
+    }
+}
+
+// POST api/records/decrypt
+export const RecordDecrypt = (req, res) => {
+    try {
+        let password = req.body.password;
+        // decrypt password
+        const decipher = crypto.createDecipher('aes192', key);
+        var decrypted = decipher.update(password, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+
+        res.header('Access-Control-Allow-Credentials', true);
+        res.send(decrypted);
+    } catch (err) {
+        console.log(err);
     }
 }

@@ -9,6 +9,7 @@ import Activate from './auth/Activate.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import PasswordPage from './pages/PasswordPage.jsx';
 import RequireAuth from './auth/RequireAuth.jsx';
+import RecordPage from './pages/RecordPage.jsx';
 import './index.css';
 
 
@@ -37,7 +38,16 @@ const router = createBrowserRouter([
       {
         path: "/password",
         element: <RequireAuth><PasswordPage /></RequireAuth>,
-      }
+      },
+      {
+        path: "/edit/:recordId",
+        element: <RequireAuth><RecordPage /></RequireAuth>
+      },
+      {
+        path: "/create/",
+        element: <RequireAuth><RecordPage /></RequireAuth>
+      },
+
     ]
   },
 ]);
