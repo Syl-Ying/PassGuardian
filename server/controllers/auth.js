@@ -108,5 +108,28 @@ export const signin = (req, res) => {
                 error: 'User with this email does not exist. Please sign up.'
             })
         });
-}
+};
 
+export const authentication = (req, res, next) => {
+    const {token} = req.cookies;
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, async(err, decoded) => {
+            if (err) {
+                return res.status(403);
+            } else {
+                const user = await User.findOne({ _id: decoded })
+                console.log(user);
+
+                if (!user) {
+                    res.status(404).send('No such user');
+                } else {
+                    req.user = user;
+                }
+
+                next();
+            }
+        })
+    } else {
+        res.status(404).json( { 'message': 'No token'});
+    }
+};
