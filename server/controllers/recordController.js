@@ -1,3 +1,4 @@
+import { error } from 'console';
 import Record from '../models/record.js';
 import crypto from 'crypto';
 
@@ -40,6 +41,16 @@ export const RecordCreate = async (req, res) => {
 }
 
 // GET api/records/:recordId
+export const RecordGet = async (req, res) => {
+    const recordId = req.params.recordId;
+    try {
+        const record = await Record.findOne({ _id: recordId });
+        if (!record) throw error;
+        res.status(200).send(record);
+    } catch (error) {
+        res.status(404).send(false)
+    }
+}
 
 // PATCH api/record/edit/:recordId
 export const RecordEdit = async (req, res) => {
@@ -47,7 +58,7 @@ export const RecordEdit = async (req, res) => {
     const updates = req.body;
     const options = { new: true };
     try {
-        // hash updatred password
+        // hash updated password
         if (Object.keys(updates).includes('password')) {
             // encrypt AES password
             const cipher = crypto.createCipher('aes192', key);

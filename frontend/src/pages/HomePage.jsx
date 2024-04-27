@@ -5,7 +5,7 @@ export default function HomePage() {
     <div className='flex flex-col h-screen overflow-scroll snap-y snap-mandatory'>
       <div className="flex flex-col items-center justify-center w-full h-screen bg-blue-100 snap-start">
         <h1 className="text-4xl font-bold">PassGuardian</h1>
-        <img src="src/assets/logo.png" alt="Dog Logo" className="max-w-xs mt-4 max-h-64" />
+        <img src="logo.PNG" alt="Dog Logo" className="max-w-xs mt-4 max-h-64" />
       </div>
 
       <div className="flex flex-col items-center justify-center w-full h-screen bg-green-100 snap-start">

@@ -16,7 +16,7 @@ const Record = (props) => {
                 );
                 setDecryptedPassword(response.data);
             } catch (err) {
-                console.err('Error decrypting password:', error);
+                console.err('Error decrypting password:', err);
             }
         }
 

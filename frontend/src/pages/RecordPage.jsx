@@ -16,23 +16,29 @@ function RecordPage() {
   useEffect(() => {
     async function fetchData() {
       const id = params.recordId?.toString();
-      // new record
+      // new record for /create
       if(!id) return;
 
-      // update existing record
+      // update existing record for /edit/:recordId
       setIsNew(false);
+      
       try {
-        const response = await axios.patch(
-            `/api/records/edit/${params.recordId.toString()}`
+        const response = await axios.get(
+            `/api/records/${params.recordId.toString()}`
         );
 
-        const record = response;
+        const record = response.data;
         if (!record) {
-            console.warn(`Record with id ${id} not found`);
-            navigate("/");
+            console.error(`Record with id ${id} not found`);
+            navigate("/password");
             return;
         }
-        setForm(record);
+
+        setForm({
+          username: record.username,
+          password: record.password,
+          siteurl: record.siteurl,
+        });
       } catch (err) {
         console.error('An error has occurred: ', err);
       }
@@ -53,6 +59,8 @@ function RecordPage() {
   async function onSubmit(e) {
     e.preventDefault();
     const record = { ...form };
+    console.log(record);
+    console.log(isNew);
     
     try {
       let response;
@@ -66,22 +74,27 @@ function RecordPage() {
         });
       } else {
         // if we are updating a record we will PATCH to /records/edit/:id.
-        response = await axios.patch(`/api/records/edit/${params.id}`, {
-          headers: {
-            "Content-Type": "application/json",
+        response = await axios.patch(`/api/records/edit/${params.recordId}`,
+          {
+            'username': record.username, 
+            'siteurl': record.siteurl, 
+            'password': record.password
           },
-          body: JSON.stringify(record),
-        });
+          {headers: {
+            "Content-Type": "application/json",
+          }}
+        );
+        console.log(response);
       }
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (error) {
       console.error('A problem occurred with fetch operation: ', error);
     } finally {
-      setForm({ name: "", position: "", level: "" });
-      navigate("/");
+      setForm({ username: "", password: "", siteurl: "" });
+      navigate("/password");
     }
   }
 
@@ -157,7 +170,7 @@ function RecordPage() {
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input type="password" name="password" id="password"
+                  <input type="text" name="password" id="password"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                     placeholder="password"
                     value={form.password}
