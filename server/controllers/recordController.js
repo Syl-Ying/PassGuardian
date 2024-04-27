@@ -1,18 +1,19 @@
 import Record from '../models/record.js';
 import bcrypt from 'bcryptjs';
 
-// GET api/record/
+// GET api/records/
 export const RecordList = async (req, res) => {
     try {
         const records = await Record.find( { user: req.user._id });
-        res.status(200).json({ success: true, records: records, user: req.user })
+        res.header('Access-Control-Allow-Credentials', true);
+        res.status(200).send(records);
     } catch (err) {
         console.log('RecordList error: ', err);
         res.status(404).json({ success: false, msg: "An error Occured" });
     }
 }
 
-// POST api/record/create
+// POST api/records/create
 export const RecordCreate = async (req, res) => {
     const { siteurl, username, password } = req.body;
     // encrypt password
@@ -34,7 +35,7 @@ export const RecordCreate = async (req, res) => {
     }
 }
 
-// GET api/record/:recordId
+// GET api/records/:recordId
 
 // PATCH api/record/edit/:recordId
 export const RecordEdit = async (req, res) => {
@@ -56,7 +57,7 @@ export const RecordEdit = async (req, res) => {
     }
 }
 
-// DELETE api/record/delete/:recordId
+// DELETE api/records/delete/:recordId
 export const RecordDelete = async (req, res) => {
     const recordId = req.params.recordId;
     const record = await Record.findById(recordId);

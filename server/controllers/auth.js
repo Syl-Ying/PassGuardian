@@ -130,6 +130,6 @@ export const authentication = (req, res, next) => {
             }
         })
     } else {
-        res.status(404).json( { 'message': 'No token'});
+        res.status(404).json( { 'message': 'No token in cookies'});
     }
 };
