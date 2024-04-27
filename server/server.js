@@ -5,8 +5,8 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import 'dotenv/config';
-import cookieParser from 'cookie-parser';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import authRoutes from './routes/auth.js';
 import RecordRoutes from './routes/recordRoute.js';
@@ -30,6 +30,16 @@ app.use(bodyParser.json());
 app.use(cookieParser);
 app.use('/api', authRoutes);
 app.use('/api/records', authentication, RecordRoutes);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+let frontend_dir = path.join(__dirname, '..', 'frontend', 'dist')
+
+app.use(express.static(frontend_dir));
+app.get('*', function (req, res) {
+    console.log("received request");
+    res.sendFile(path.join(frontend_dir, "index.html"));
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} - ${process.env.NODE_ENV}`);
