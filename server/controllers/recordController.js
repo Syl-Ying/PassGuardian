@@ -1,94 +1,97 @@
-import jwt from 'jsonwebtoken';
-import User from "../models/user.js";
-import Record from "../models/record.js";
+import Record from '../models/record.js';
+import crypto from 'crypto';
 
-export const getRecordList = async (req, res) => {
-    const { _id } = req.body;
+const key = process.env.CRYPTO_SECRET;
 
-    Record.find({ _id }).exec().then((records) => {
-        if (records) {
-            return res.status(200).json({
-                records: records,
-            });
-        }
-    }).catch(err => {
-        res.status(404).json({
-            message: "There's an error getting recordlist"
-        })
-        console.log("Error in getting record list");
-    });
-};
-
-export const getRecord = (req, res) => {
-    const { token } = req.body;
-
-    if (token) {
-        jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (err, decoded) => {
-            if (err) {
-                console.log("JWT verify in account activation error: ", err);
-                return res.status(401).json({ error: "Expired link. Please sign up again"});
-            }
-
-            const { username, email, password } = jwt.decode(token);
-            const user = new User({ username, email, password });
-            user.save()
-                .then(user => {
-                    return res.json({
-                        message: 'Signup success. Please signin.'
-                    });
-                })
-                .catch(err => {
-                    console.log('Save user in account activation error: ', err);
-                    return res.status(401).json({
-                        error: 'Error saving user in database. Try signup again'
-                    });
-                });
-        });
-    } else {
-        return res.json({
-            message: 'Something went wrong. Try again.'
-        });
+// GET api/records/
+export const RecordList = async (req, res) => {
+    try {
+        const records = await Record.find( { user: req.user._id });
+        res.header('Access-Control-Allow-Credentials', true);
+        res.status(200).send(records);
+    } catch (err) {
+        console.log('RecordList error: ', err);
+        res.status(404).json({ success: false, msg: "An error Occured" });
     }
-};
-
-export const createRecord = (req, res) => {
-    const { email, password } = req.body;
-
-    // check if user exists
-    User.findOne({ email }).exec()
-        .then(user => {
-            if (!user) {
-                return res.status(400).json({
-                    error: 'User with this email does not exist. Please sign up.'
-                })
-            }
-
-            // authenticate
-            if (!user.authenticate(password)) {
-                return res.status(400).json({
-                    error: 'Email and password do not match!'
-                })
-            }
-
-            // generate a token and send to client
-            const token = jwt.sign({ _id: user._id}, process.env.JWT_SECRET, { expiresIn: '7d'});
-            const { _id, username, email, role } = user;
-            return res.json({
-                token,
-                user: { _id, username, email, role }
-            });
-        })
-        .catch(err => {
-            return res.status(400).json({
-                error: 'User with this email does not exist. Please sign up.'
-            })
-        });
 }
 
-export const updateRecord = (req, res) => {
+// POST api/records/create
+export const RecordCreate = async (req, res) => {
+    const { siteurl, username, password } = req.body;
+    // encrypt AES password
+    const cipher = crypto.createCipher('aes192', key);
+    var crypted = cipher.update(password, 'utf8', 'hex');
+    crypted += cipher.final('hex');
+    const hashed_password = crypted;
+    const record = new Record({
+        siteurl,
+        username,
+        password: hashed_password
+    });
 
-};
+    try {
+        await record.save();
+        await Record.findOneAndUpdate({ siteurl: siteurl }, { user: req.user._id });
+        res.status(200).json({ sucess: true, msg: "Record Added" })
+    } catch (err) {
+        res.status(401).json({ sucess: false, msg: "An error Ocurred!" })
+        console.log(err)
+    }
+}
 
-export const deleteRecord = (req, res) => {
+// GET api/records/:recordId
 
-};
+// PATCH api/record/edit/:recordId
+export const RecordEdit = async (req, res) => {
+    const recordId = req.params.recordId;
+    const updates = req.body;
+    const options = { new: true };
+    try {
+        // hash updatred password
+        if (Object.keys(updates).includes('password')) {
+            // encrypt AES password
+            const cipher = crypto.createCipher('aes192', key);
+            var crypted = cipher.update(updates.password, 'utf8', 'hex');
+            crypted += cipher.final('hex');
+            updates.password = crypted;
+        }
+
+        const record = await Record.findOneAndUpdate({_id: recordId }, updates, options);
+        if (!record) throw error;
+        res.status(200).send(record);
+    } catch (error) {
+        res.status(404).json({ "success": false, "message": "Record Not Found" })
+    }
+}
+
+// DELETE api/records/delete/:recordId
+export const RecordDelete = async (req, res) => {
+    const recordId = req.params.recordId;
+    const record = await Record.findById(recordId);
+    if (record) {
+        try {
+            const record = await Record.findByIdAndDelete(recordId)
+            if (!record) throw error;
+            res.status(200).json({ "success": true, "message": "Record is permenatly deleted" })
+        }
+        catch (error) {
+            res.status(404).json({ "success": false, "message": "Record Not Found" })
+        }
+    }
+}
+
+// POST api/records/decrypt
+export const RecordDecrypt = (req, res) => {
+    try {
+        let password = req.body.password;
+        // decrypt password
+        const decipher = crypto.createDecipher('aes192', key);
+        var decrypted = decipher.update(password, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+
+        res.header('Access-Control-Allow-Credentials', true);
+        res.send(decrypted);
+    } catch (err) {
+        console.log(err);
+    }
+}

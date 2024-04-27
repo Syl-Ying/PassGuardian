@@ -2,13 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App.jsx'
-import HomePage from './components/HomePage.jsx';
+import HomePage from './pages/HomePage.jsx';
 import Signup from './auth/Signup.jsx';
 import Signin from './auth/Signin.jsx';
 import Activate from './auth/Activate.jsx';
-import ErrorPage from './components/ErrorPage.jsx';
-import PasswordPage from './components/PasswordPage.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
+import PasswordPage from './pages/PasswordPage.jsx';
 import RequireAuth from './auth/RequireAuth.jsx';
+import RecordPage from './pages/RecordPage.jsx';
 import './index.css';
 
 
@@ -37,7 +38,16 @@ const router = createBrowserRouter([
       {
         path: "/password",
         element: <RequireAuth><PasswordPage /></RequireAuth>,
-      }
+      },
+      {
+        path: "/edit/:recordId",
+        element: <RequireAuth><RecordPage /></RequireAuth>
+      },
+      {
+        path: "/create/",
+        element: <RequireAuth><RecordPage /></RequireAuth>
+      },
+
     ]
   },
 ]);
