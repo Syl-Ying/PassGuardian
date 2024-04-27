@@ -22,7 +22,7 @@ const Navbar = () => {
     return (
         <nav className="z-10 fixed top-0 w-full flex items-center justify-between flex-wrap bg-[#9F7AEA] p-6 border-b border-solid">
             <div className="flex items-center flex-shrink-0 text-[#f5f5f5] mr-6">
-                <img src='src/assets/logo.PNG'  className="mr-2 fill-current w-9 h-9" width="60" height="60" viewBox="0 0 60 60" />
+                <img src='/logo.PNG'  className="mr-2 fill-current w-9 h-9" width="60" height="60" viewBox="0 0 60 60" />
                 <span className="text-xl font-semibold tracking-tight">PassGuardian</span>
             </div>
             

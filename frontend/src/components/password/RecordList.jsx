@@ -25,7 +25,7 @@ export default function RecordList() {
 
   // delete a record
   async function deleteRecord(id) {
-    await axios.delete(`http://localhost:8000/records/${id}`);
+    await axios.delete(`/api/records/delete/${id}`);
     const newRecords = records.filter((el) => el._id !== id);
     setRecords(newRecords);
   }
