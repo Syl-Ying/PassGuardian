@@ -19,6 +19,12 @@ export const RecordList = async (req, res) => {
 // POST api/records/create
 export const RecordCreate = async (req, res) => {
     const { siteurl, username, password } = req.body;
+
+    // if passowrd is empty, generate a password 
+    if (!password) {
+        password = Math.random();
+    }
+    
     // encrypt AES password
     const cipher = crypto.createCipher('aes192', key);
     var crypted = cipher.update(password, 'utf8', 'hex');
@@ -97,7 +103,7 @@ export const RecordDecrypt = (req, res) => {
         let password = req.body.password;
         // decrypt password
         const decipher = crypto.createDecipher('aes192', key);
-        var decrypted = decipher.update(password, 'hex', 'utf8');
+        var decrypted = decipher.update(password.toString(), 'hex', 'utf8');
         decrypted += decipher.final('utf8');
 
         res.header('Access-Control-Allow-Credentials', true);

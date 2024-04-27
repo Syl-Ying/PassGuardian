@@ -1,6 +1,8 @@
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import PasswordGenerator from '../components/password/PasswordGenerator'
 
 // record page
 function RecordPage() {
@@ -14,37 +16,50 @@ function RecordPage() {
   const navigate = useNavigate(); // programmatically navigate to different routes after form submission or when certain conditions are met.
 
   useEffect(() => {
-    async function fetchData() {
+    function fetchData() {
       const id = params.recordId?.toString();
       // new record for /create
       if(!id) return;
 
       // update existing record for /edit/:recordId
       setIsNew(false);
+
+      let record = {};
       
-      try {
-        const response = await axios.get(
-            `/api/records/${params.recordId.toString()}`
-        );
+      axios.get(`/api/records/${params.recordId.toString()}`)
+        .then((res) =>{
+          record = res.data;
+          if (!record) {
+              console.error(`Record with id ${id} not found`);
+              navigate("/password");
+              return;
+          }
 
-        const record = response.data;
-        if (!record) {
-            console.error(`Record with id ${id} not found`);
-            navigate("/password");
-            return;
-        }
-
-        setForm({
-          username: record.username,
-          password: record.password,
-          siteurl: record.siteurl,
+          setForm({
+            username: record.username,
+            password: record.password,
+            siteurl: record.siteurl,
+          });
+        })
+        .catch((err) => {
+          console.error('An error has occurred: ', err);
         });
-      } catch (err) {
+
+      // decrypt password
+      axios.post('/api/records/decrypt',
+        { password: record.password}, 
+        { withCredentials: true }
+      )
+      .then(res => {
+        record.password = res;
+      })
+      .catch(err => {
         console.error('An error has occurred: ', err);
-      }
+      }) 
     }
     
     fetchData();
+
     return;
   }, [params.recordId, navigate]);
 
@@ -65,6 +80,16 @@ function RecordPage() {
     try {
       let response;
       if (isNew) {
+        // check that siteurl and username are not empty
+        if (!siteurl) {
+          toast.error(`${siteurl} must Be Provided`);
+          throw new Error(`Siteurl not provided!`);
+        }
+        if (!username) {
+          toast.error(`${username} must Be Provided`);
+          throw new Error(`Username not provided!`);
+        }
+
         // if we are adding a new record, we will POST to /records
         response = await axios.post("/api/records/create", {
           headers: {
@@ -101,6 +126,7 @@ function RecordPage() {
   // display form that takes input from user
   return (
     <>
+      <ToastContainer />
       <h3 className="p-4 text-lg font-semibold">Create/Update Password Record</h3>
 
       <form
@@ -115,6 +141,7 @@ function RecordPage() {
             <p className="mt-1 text-sm leading-6 text-slate-600">
               You can use PasswordGenerator to automaticaly generate a password. 
             </p>
+            <PasswordGenerator />
           </div>
 
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
