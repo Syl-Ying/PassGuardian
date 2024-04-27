@@ -22,12 +22,9 @@ mongoose.connect(process.env.MONGO_URI, {})
 
 // middlewares
 app.use(morgan('dev'));
-if (process.env.NODE_ENV = 'development') {
-    app.use(cors({ origin: `http://localhost:5173` }));
-}
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cookieParser);
 app.use('/api', authRoutes);
 app.use('/api/records', authentication, RecordRoutes);
 
@@ -40,6 +37,7 @@ app.get('*', function (req, res) {
     console.log("received request");
     res.sendFile(path.join(frontend_dir, "index.html"));
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} - ${process.env.NODE_ENV}`);
