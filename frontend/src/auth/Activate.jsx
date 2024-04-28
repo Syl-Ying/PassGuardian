@@ -29,7 +29,7 @@ const Activate = ({ match }) => {
         event.preventDefault();
         axios({
             method: 'POST',
-            url: `${import.meta.env.VITE_REACT_APP_API}/account-activation`,
+            url: `/api/account-activation`,
             data: { token }
         })
             .then(response => {

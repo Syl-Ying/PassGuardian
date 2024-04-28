@@ -23,7 +23,7 @@ const Signup = () => {
         event.preventDefault();
         axios({
             method: 'POST',
-            url: `${import.meta.env.VITE_REACT_APP_API}/signup`,
+            url: `/api/signup`,
             data: { username, email, password }
         })
             .then(response => {

@@ -21,7 +21,7 @@ const Signin = () => {
         event.preventDefault();
         axios({
             method: 'post',
-            url: `${import.meta.env.VITE_REACT_APP_API}/signin`,
+            url: `/api/signin`,
             data: { email, password },
             headers: {
                 'Content-Type': 'application/json',

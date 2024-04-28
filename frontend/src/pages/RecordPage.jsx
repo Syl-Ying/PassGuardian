@@ -52,12 +52,12 @@ function RecordPage() {
         { password: record.password}, 
         { withCredentials: true }
       )
-      .then(res => {
-        record.password = res;
-      })
-      .catch(err => {
-        console.error('An error has occurred: ', err);
-      }) 
+        .then(res => {
+          record.password = res;
+        })
+        .catch(err => {
+          console.error('An error has occurred: ', err);
+        }) 
     }
     
     fetchData();
@@ -104,9 +104,9 @@ function RecordPage() {
         // if we are updating a record, PATCH to /records/edit/:id
         response = await axios.patch(`/api/records/edit/${params.recordId}`,
           {
-            'username': record.username, 
-            'siteurl': record.siteurl, 
-            'password': record.password
+            username: record.username, 
+            siteurl: record.siteurl, 
+            password: record.password
           },
           {headers: {
             "Content-Type": "application/json",
