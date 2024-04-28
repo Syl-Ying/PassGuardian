@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from "react-toastify";
 
 const PasswordGenerator = () => {
     const [alphabet, setAlphabet] = useState(false);
@@ -9,7 +10,7 @@ const PasswordGenerator = () => {
 
     const generatePassword = () => {
         if ((!alphabet && !numerals && !symbols) || !length || isNaN(length) || length < 4 || length > 50) {
-            alert('Please select at least one option for characters and provide a valid length between 4 and 50.');
+            toast.error('Please select at least one option for characters and provide a valid length between 4 and 50.');
             return;
         }
 
@@ -38,6 +39,7 @@ const PasswordGenerator = () => {
 
     return (
         <div className="flex flex-col gap-4">
+            <ToastContainer />
             <label className="flex items-center space-x-2">
                 <input type="checkbox" checked={alphabet} onChange={() => setAlphabet(!alphabet)} />
                 Alphabet (A-Z, a-z)

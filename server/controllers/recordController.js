@@ -3,6 +3,8 @@ import Record from '../models/record.js';
 import crypto from 'crypto';
 
 const key = process.env.CRYPTO_SECRET;
+const algorithm = 'aes-256-ctr';
+const initialization_vector = "X05IGQ5qdBnIqAWD"
 
 // GET api/records/
 export const RecordList = async (req, res) => {
@@ -19,17 +21,14 @@ export const RecordList = async (req, res) => {
 // POST api/records/create
 export const RecordCreate = async (req, res) => {
     const { siteurl, username, password } = req.body;
-
-    // if passowrd is empty, generate a password 
-    if (!password) {
-        password = Math.random();
-    }
+    console.log(password);
     
     // encrypt AES password
-    const cipher = crypto.createCipher('aes192', key);
-    var crypted = cipher.update(password, 'utf8', 'hex');
-    crypted += cipher.final('hex');
-    const hashed_password = crypted;
+    let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), Buffer.from(initialization_vector));
+    let encrypted = cipher.update(Buffer.from(password), 'utf8', 'hex');
+    encrypted += cipher.final('hex')
+    const hashed_password = encrypted;
+    
     const record = new Record({
         siteurl,
         username,
@@ -67,10 +66,10 @@ export const RecordEdit = async (req, res) => {
         // hash updated password
         if (Object.keys(updates).includes('password')) {
             // encrypt AES password
-            const cipher = crypto.createCipher('aes192', key);
-            var crypted = cipher.update(updates.password, 'utf8', 'hex');
-            crypted += cipher.final('hex');
-            updates.password = crypted;
+            let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), Buffer.from(initialization_vector));
+            let encrypted = cipher.update(updates.password, 'utf8', 'hex');
+            encrypted += cipher.final('hex')
+            updates.password = encrypted;
         }
 
         const record = await Record.findOneAndUpdate({_id: recordId }, updates, options);
@@ -102,9 +101,9 @@ export const RecordDecrypt = (req, res) => {
     try {
         let password = req.body.password;
         // decrypt password
-        const decipher = crypto.createDecipher('aes192', key);
-        var decrypted = decipher.update(password.toString(), 'hex', 'utf8');
-        decrypted += decipher.final('utf8');
+        const decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), Buffer.from(initialization_vector));
+        let decrypted = decipher.update(password, 'hex', 'utf8');
+        decrypted  += decipher.final('utf8')
 
         res.header('Access-Control-Allow-Credentials', true);
         res.send(decrypted);

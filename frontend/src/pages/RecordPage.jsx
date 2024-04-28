@@ -15,6 +15,8 @@ function RecordPage() {
   const params = useParams(); // determine whether it's a new record or an existing record being edited
   const navigate = useNavigate(); // programmatically navigate to different routes after form submission or when certain conditions are met.
 
+  // check if current page is create or eidt
+  // get form info when first mount record edit page 
   useEffect(() => {
     function fetchData() {
       const id = params.recordId?.toString();
@@ -59,11 +61,9 @@ function RecordPage() {
     }
     
     fetchData();
-
     return;
   }, [params.recordId, navigate]);
 
-  // update state properties
   function updateForm(value) {
     return setForm((prev) => {
       return { ...prev, ...value };
@@ -90,15 +90,18 @@ function RecordPage() {
           throw new Error(`Username not provided!`);
         }
 
-        // if we are adding a new record, we will POST to /records
+        // if we are adding a new record, POST to /records/create
         response = await axios.post("/api/records/create", {
+          username: record.username,
+          siteurl: record.siteurl,
+          password: record.password
+        }, {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(record),
         });
       } else {
-        // if we are updating a record we will PATCH to /records/edit/:id.
+        // if we are updating a record, PATCH to /records/edit/:id
         response = await axios.patch(`/api/records/edit/${params.recordId}`,
           {
             'username': record.username, 
