@@ -10,8 +10,11 @@
         - Search Password
         - Forgot profile password
         - Edit profile
+        - move password details (username, password, lastUpdated) from Passwordlist page to PasswordRecord Page
+        - Fix send email bug
     - Style
-        - Use shadcn component instead of writing self-made record card components.
+        - Use shadcn component instead of writing self-made password card components.
+        - PasswordPage css
 
 - What assumptions did you make while working on this assignment?
     - I assumed that users prefer a minimalist interface without excessive options. This assumption was based on the general trend towards simplified user interfaces in software design, particularly for utility apps where ease of use and clarity are paramount.

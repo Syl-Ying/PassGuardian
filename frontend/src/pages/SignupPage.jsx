@@ -74,8 +74,8 @@ const Signup = () => {
     }
 
     return (
-        <div className="col-md-6 offset-md-3">
-            <div className="py-40" style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}}>
+        <div className="flex items-center py-4 md:py-16">
+            <div className="" style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}}>
                 <div className="container mx-auto">
                     <div className="flex flex-col w-10/12 mx-auto overflow-hidden bg-white shadow-lg lg:flex-row lg:w-8/12 rounded-xl">
                         <div className="flex flex-col items-center justify-center w-full p-12 bg-center bg-no-repeat bg-cover lg:w-1/2" style={{backgroundImage: "url('src/assets/xx.png')"}}>

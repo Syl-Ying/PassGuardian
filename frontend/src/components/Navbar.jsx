@@ -35,6 +35,10 @@ const Navbar = () => {
                         <title className='sr-only'>Menu</title>
                         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
                     </svg>
+
+                    <svg className={`fill-current h-3 w-3 ${isOpen ? "block" : "hidden"}`} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+                    </svg>
                 </button>
             </div>
             
@@ -54,10 +58,10 @@ const Navbar = () => {
                     <Fragment>
                         <div>
                             <NavLink to="/login" className="inline-block px-4 py-2 mt-4 text-sm leading-none text-white border border-white rounded hover:border-transparent hover:bg-[#6e69f8] md:mt-0"style={isActive('/login')}>
-                                Login
+                                Sign in
                             </NavLink>
                         </div>
-                        <div className='pl-2'>
+                        <div>
                             <NavLink to="/signup" className="inline-block px-4 py-2 mt-4 text-sm leading-none text-white border border-white rounded hover:border-transparent hover:bg-[#6e69f8] md:mt-0"style={isActive('/signup')}>
                                 Sign up
                             </NavLink>

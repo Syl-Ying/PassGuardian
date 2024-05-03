@@ -62,18 +62,16 @@ const Signin = () => {
     }
 
     return (
-        <div className="col-md-6 offset-md-3">
-            <div className="py-40" style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}}>
-                <div className="container mx-auto">
-                    <div className="flex flex-col w-10/12 mx-auto overflow-hidden bg-white shadow-lg lg:flex-row lg:w-8/12 rounded-xl">
-                        <div className="w-full px-12 py-16 lg:w-1/2">
-                            <ToastContainer />
-                            <h2  className="mb-4 text-3xl">Welcome Back!</h2>
-                            {signinForm()}
-                            <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
-                                Forgot password
-                            </Link>
-                        </div>
+        <div className="flex items-center h-screen pb-32 md:pb-32 sm:pb-8" style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}}>
+            <div className="container mx-auto">
+                <div className="flex flex-col w-10/12 mx-auto overflow-hidden bg-white shadow-lg lg:flex-row lg:w-8/12 rounded-xl">
+                    <div className="w-full px-12 py-16 lg:w-1/2">
+                        <ToastContainer />
+                        <h2  className="mb-4 text-3xl">Welcome Back!</h2>
+                        {signinForm()}
+                        <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
+                            Forgot password
+                        </Link>
                     </div>
                 </div>
             </div>
