@@ -3,17 +3,19 @@ import React from 'react'
 export default function HomePage() {
   return (
     <div className='flex flex-col h-screen overflow-scroll text-white snap-y snap-mandatory' style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}}>
-      <div className="flex flex-col items-center justify-center w-full h-screen md:flex-row snap-start">
-        <div className='flex justify-center md:w-1/2'>
-          <img src="logo.PNG" alt="Dog Logo" className="max-w-xs mt-4 mb-8 md:ml-9 max-h-64" />
+      <div className="flex flex-col items-center justify-center w-full h-screen mt-16 md:flex-row snap-start">
+        <div className='flex flex-col items-center text-center md:w-3/5 md:text-left'>
+          <div className='md:ml-20'>
+            <h1 className="my-2 text-4xl font-bold md:my-9 lg:text-6xl">PassGuardian</h1>
+            <h2 className="text-3xl font-bold">Secure Your Password</h2>
+            <p className="mt-4 ">
+              Protect your passwords with our state-of-the-art encryption technology.
+            </p>
+          </div>
         </div>
-        
-        <div className='text-center md:text-left md:w-1/2'>
-          <h1 className="text-4xl font-bold">PassGuardian</h1>
-          <h2 className="text-3xl font-bold">Secure Your Password</h2>
-          <p className="mt-4 ">
-            Protect your passwords with our state-of-the-art encryption technology.
-          </p>
+
+        <div className='flex justify-start mt-12 md:w-2/5'>
+          <img src="logo.PNG" alt="Dog Logo" className="max-w-md mt-4 mb-8 md:ml-4 max-h-64 md:max-h-80" />
         </div>
       </div>
 
