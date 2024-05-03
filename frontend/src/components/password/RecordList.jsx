@@ -43,7 +43,7 @@ export default function RecordList() {
     });
   }
 
-  // display table with the records of passwords.
+  // display table with the records of passwords
   return (
     <div className="overflow-hidden border rounded-lg">
     <div className="relative w-full overflow-auto">

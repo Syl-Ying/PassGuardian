@@ -19,6 +19,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        'inconsolata': ['Inconsolata', 'sans-serif'],
+      },
       spacing: {
         '21': '84px',
       },

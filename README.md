@@ -5,8 +5,13 @@
     - Differentiate diffrent version of react-router-dom version usage, especially between data router and other older versions.
 
 - Given more time, what additional features, functional or design changes would you make
-    - Use shadcn component instead of writing self-made record card components.
-
+    - Feature
+        - Share password
+        - Search Password
+        - Forgot profile password
+        - Edit profile
+    - Style
+        - Use shadcn component instead of writing self-made record card components.
 
 - What assumptions did you make while working on this assignment?
     - I assumed that users prefer a minimalist interface without excessive options. This assumption was based on the general trend towards simplified user interfaces in software design, particularly for utility apps where ease of use and clarity are paramount.

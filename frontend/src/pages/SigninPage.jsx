@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from "axios";
-import { authenticate, isAuth } from "./helpers";
+import { authenticate, isAuth } from "../auth/helpers";
 
 const Signin = () => {
     const [values, setValues] = useState({
