@@ -56,7 +56,7 @@ const Navbar = () => {
 
                 {!isAuth() && (
                     <Fragment>
-                        <div>
+                        <div className='md:px-2'>
                             <NavLink to="/login" className="inline-block px-4 py-2 mt-4 text-sm leading-none text-white border border-white rounded hover:border-transparent hover:bg-[#6e69f8] md:mt-0"style={isActive('/login')}>
                                 Sign in
                             </NavLink>

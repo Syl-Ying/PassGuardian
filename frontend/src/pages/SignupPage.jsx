@@ -55,7 +55,7 @@ const Signup = () => {
             
             <div className="mt-5">
                 <input type="checkbox" className="border border-gray-400" />
-                <span>
+                <span className="pl-2">
                     I accept the <a href="#" className="font-semibold text-purple-500">Terms of Use</a> &  <a href="#" className="font-semibold text-purple-500">Privacy Policy</a> 
                 </span>
             </div>
@@ -74,8 +74,7 @@ const Signup = () => {
     }
 
     return (
-        <div className="flex items-center py-4 md:py-16">
-            <div className="" style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}}>
+        <div style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}} className="flex items-center h-screen py-4 md:py-16">
                 <div className="container mx-auto">
                     <div className="flex flex-col w-10/12 mx-auto overflow-hidden bg-white shadow-lg lg:flex-row lg:w-8/12 rounded-xl">
                         <div className="flex flex-col items-center justify-center w-full p-12 bg-center bg-no-repeat bg-cover lg:w-1/2" style={{backgroundImage: "url('src/assets/xx.png')"}}>
@@ -95,7 +94,6 @@ const Signup = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     )
 };
