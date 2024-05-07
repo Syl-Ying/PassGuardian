@@ -27,7 +27,9 @@ export const signup = async (req, res) => {
                         <h2 style="color: #635bff;">PassGuardian</h2>
                         <p>Thanks for creating a PassGuardian account. Verify your email so you can get up and running quickly.</p>
                         
-                        <a href=${process.env.CLIENT_URL}/auth/activate/${token} style="background-color: #635bff; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 10px;">Verify email</a>
+                        <a href=${process.env.CLIENT_URL}/auth/activate/${token} style="background-color: #635bff; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 10px;">
+                            Verify email
+                        </a>
                         
                         <p>Once your email is verified, you can start setting up your account.</p>
                         
