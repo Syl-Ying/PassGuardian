@@ -18,46 +18,42 @@ function RecordPage() {
   // check if current page is create or eidt
   // get form info when first mount record edit page 
   useEffect(() => {
-    function fetchData() {
+    async function fetchData() {
       const id = params.recordId?.toString();
       // new record for /create
       if(!id) return;
 
       // update existing record for /edit/:recordId
       setIsNew(false);
-
-      let record = {};
-      
-      axios.get(`/api/records/${params.recordId.toString()}`)
-        .then((res) =>{
-          record = res.data;
-          if (!record) {
-              console.error(`Record with id ${id} not found`);
-              navigate("/password");
-              return;
-          }
-
-          setForm({
-            username: record.username,
-            password: record.password,
-            siteurl: record.siteurl,
-          });
-        })
-        .catch((err) => {
-          console.error('An error has occurred: ', err);
-        });
+      let record = null;
+      try {
+        const res = await axios.get(`/api/records/${params.recordId.toString()}`);
+        record = res.data;
+        
+        if (!record) {
+            console.error(`Record with id ${id} not found`);
+            navigate("/password");
+            return;
+        }
+      } catch (err) {
+        console.error('An error has occurred: ', err);
+      }
 
       // decrypt password
-      axios.post('/api/records/decrypt',
-        { password: record.password}, 
-        { withCredentials: true }
-      )
-        .then(res => {
-          record.password = res;
-        })
-        .catch(err => {
-          console.error('An error has occurred: ', err);
-        }) 
+      try {
+        const res = await axios.post('/api/records/decrypt',
+          { password: record.password}, 
+          { withCredentials: true }
+        );
+        record.password = res.data;
+        setForm({
+          username: record.username,
+          password: record.password,
+          siteurl: record.siteurl,
+        });
+      } catch (err) {
+        console.error('An error has occurred when decypt: ', err);
+      }
     }
     
     fetchData();
@@ -74,8 +70,8 @@ function RecordPage() {
   async function onSubmit(e) {
     e.preventDefault();
     const record = { ...form };
-    console.log(record);
-    console.log(isNew);
+    // console.log(record);
+    // console.log(isNew);
     
     try {
       let response;
@@ -112,7 +108,6 @@ function RecordPage() {
             "Content-Type": "application/json",
           }}
         );
-        console.log(response);
       }
 
       if (!response) {

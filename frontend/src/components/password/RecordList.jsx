@@ -5,7 +5,7 @@ import Record from "./Record.jsx";
 export default function RecordList() {
   const [records, setRecords] = useState([]);
 
-  // fetches records from database
+  // fetch records from database
   async function getRecords() {
     const response = await axios.get(
         '/api/records/',

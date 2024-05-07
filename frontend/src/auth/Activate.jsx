@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from "axios";
@@ -11,8 +11,8 @@ const Activate = ({ match }) => {
         token: '',
         show: true
     });
-
     const { token } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
@@ -36,6 +36,7 @@ const Activate = ({ match }) => {
                 console.log('Activate Success', response);
                 setValues({ ...values, show: false });
                 toast.success(response.data.message);
+                navigate('/login');
             })
             .catch(error => {
                 console.log('Activate Error', error.response.data.error);

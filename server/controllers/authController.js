@@ -80,7 +80,6 @@ export const accountActivation = (req, res) => {
 
 export const signin = async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password);
 
     // check if user exists
     await User.findOne({ email: email.toLowerCase() }).exec()
@@ -121,7 +120,7 @@ export const authentication = (req, res, next) => {
                 return res.status(403);
             } else {
                 const user = await User.findOne({ _id: decoded })
-                console.log(user);
+                // console.log(user);
 
                 if (!user) {
                     res.status(404).send('No such user');

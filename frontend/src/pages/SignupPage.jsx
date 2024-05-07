@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { NavLink, Navigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from "axios";
-import { isAuth } from "../auth/helpers";
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -54,13 +53,6 @@ const Signup = () => {
             </div>
         </form>
     );
-
-    // Once signed up, automatically sign in
-
-    // If user has signed in, redirect to password page
-    if (isAuth()) {
-        return <Navigate to="/password" />;
-    }
 
     return (
         <div style={{backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)'}} className="flex items-center h-screen py-4 md:py-16">

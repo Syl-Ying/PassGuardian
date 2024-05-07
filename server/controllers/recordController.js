@@ -100,10 +100,12 @@ export const RecordDelete = async (req, res) => {
 export const RecordDecrypt = (req, res) => {
     try {
         let password = req.body.password;
+        console.log('password',password);
         // decrypt password
         const decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), Buffer.from(initialization_vector));
         let decrypted = decipher.update(password, 'hex', 'utf8');
         decrypted  += decipher.final('utf8')
+        console.log('decrypted',decrypted);
 
         res.header('Access-Control-Allow-Credentials', true);
         res.send(decrypted);
