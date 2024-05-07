@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from "axios";
@@ -50,17 +50,6 @@ const Signup = () => {
                 <input onChange={handleChange('password')} value={password} type="password" placeholder="Password" autoComplete="new-password" className="w-full px-2 py-1 border border-gray-400" />
             </div>
             <div className="mt-5">
-                <input type="password" placeholder="Confirm Password" autoComplete="new-password" className="w-full px-2 py-1 border border-gray-400" />
-            </div>
-            
-            <div className="mt-5">
-                <input type="checkbox" className="border border-gray-400" />
-                <span className="pl-2">
-                    I accept the <a href="#" className="font-semibold text-purple-500">Terms of Use</a> &  <a href="#" className="font-semibold text-purple-500">Privacy Policy</a> 
-                </span>
-            </div>
-            
-            <div className="mt-5">
                 <button onClick={clickSubmit} className="w-full py-3 text-center text-white bg-purple-500">Register Now</button>
             </div>
         </form>
@@ -82,7 +71,7 @@ const Signup = () => {
                             <div>
                                 <p className="text-black">
                                     PassGuadian helps you to manage your passwords. It can automatically generate hashed password. 
-                                    <a href="#" className="font-semibold text-purple-500">Learn more</a>
+                                    <NavLink to="/" className="font-semibold text-purple-500">Learn more</NavLink>
                                 </p>
                             </div>
                         </div>

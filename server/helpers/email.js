@@ -1,4 +1,5 @@
 import nodeMailer from "nodemailer";
+
  
 const sendEmailWithNodemailer = (req, res, emailData) => {
   const transporter = nodeMailer.createTransport({
@@ -7,8 +8,8 @@ const sendEmailWithNodemailer = (req, res, emailData) => {
     secure: false,
     requireTLS: true,
     auth: {
-      user: "sylvia.shujie.ying@gmail.com",
-      pass: "ugocduolmplckqtk", // GMAIL APP PASSWORD
+      user: process.env.EMAIL_FROM,
+      pass: process.env.GMAI_APP_PASSWORD,
     },
     tls: {
       ciphers: "SSLv3",

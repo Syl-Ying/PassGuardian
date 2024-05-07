@@ -8,9 +8,9 @@ import 'dotenv/config';
 import path from 'path';
 import { fileURLToPath } from 'node:url';
 
-import authRoutes from './routes/auth.js';
+import authRoutes from './routes/authRoute.js';
 import RecordRoutes from './routes/recordRoute.js';
-import {authentication} from './controllers/auth.js';
+import {authentication} from './controllers/authController.js';
 
 const PORT = process.env.PORT || 8000;
 const app = express();
