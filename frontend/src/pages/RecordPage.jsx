@@ -2,7 +2,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import PasswordGenerator from '../components/password/PasswordGenerator'
+import PasswordGenerator from '../components/password/PasswordGenerator';
+import { FiEye, FiEyeOff, FiCopy } from "react-icons/fi";
 
 // record page
 function RecordPage() {
@@ -14,6 +15,8 @@ function RecordPage() {
   const [isNew, setIsNew] = useState(true);
   const params = useParams(); // determine whether it's a new record or an existing record being edited
   const navigate = useNavigate(); // programmatically navigate to different routes after form submission or when certain conditions are met.
+  const [type, setType] = useState('password');
+  const [icon, setIcon] = useState('FiEyeOff'); // initially hide password
 
   // check if current page is create or eidt
   // get form info when first mount record edit page 
@@ -65,6 +68,31 @@ function RecordPage() {
       return { ...prev, ...value };
     });
   }
+  
+  // change eye icon for password
+  const handleToggle = () => {
+    if (type === 'password'){
+       setIcon('FiEye');
+       setType('text')
+    } else {
+       setIcon('FiEyeOff')
+       setType('password')
+    }
+  }
+
+  const copyField = async (copyMe) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      toast.success("Saved to Clip-Board", {
+        autoClose: 1000,
+        transition: Bounce,
+        position: "bottom-center",
+        hideProgressBar: true,
+      });
+    } catch (err) {
+      toast.error("Failed to copy!");
+    }
+  };
 
   // handle submission
   async function onSubmit(e) {
@@ -173,7 +201,7 @@ function RecordPage() {
                 Username
               </label>
               <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <div className="flex items-center rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     type="text"
                     name="username"
@@ -183,6 +211,7 @@ function RecordPage() {
                     value={form.username}
                     onChange={(e) => updateForm({ username: e.target.value })}
                   />
+                  <FiCopy className="mx-2" onClick={() => copyField(form.username)} />
                 </div>
               </div>
             </div>
@@ -194,13 +223,15 @@ function RecordPage() {
                 Password
               </label>
               <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input type="text" name="password" id="password"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="password"
-                    value={form.password}
-                    onChange={(e) => updateForm({ password: e.target.value })}
+                <div className="flex items-center rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input type={type} name="password" id="password" placeholder="password" 
+                    value={form.password} autoComplete="current-password"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6" onChange={(e) => updateForm({ password: e.target.value })}
                   />
+                  <span className="flex items-center justify-around" onClick={handleToggle}>
+                    {icon == 'FiEye' ? <FiEye /> : <FiEyeOff />}
+                  </span>
+                  <FiCopy className="mx-2" onClick={() => copyField(form.password)} />
                 </div>
               </div>
             </div>

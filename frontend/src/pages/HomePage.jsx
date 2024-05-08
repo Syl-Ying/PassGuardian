@@ -13,6 +13,12 @@ export default function HomePage() {
               <p className="mt-4 ">
                 Protect your passwords with our state-of-the-art encryption technology.
               </p>
+              <p className="mt-4 ">
+                Create strong and unique passwords for each site.
+              </p>
+              <p className="mt-4 ">
+                Securely share passwords with trusted contacts。
+              </p>
             </div>
           </div>
 
