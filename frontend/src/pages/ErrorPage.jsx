@@ -1,10 +1,13 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useRouteError } from 'react-router-dom'
 
 export default function ErrorPage() {
+  const error = useRouteError();
+  console.error(error);
+
   return (
     <div className='h-screen'>
-      <h1 className="mt-16 ml-32 font-mono uppercase">404 Not found</h1>
+      <h1 className="mt-16 ml-32 font-mono uppercase">{error.statusText || error.message}</h1>
       <div className="grid grid-cols-1 gap-10 mx-5 mt-20 mb-20 md:grid-cols-2 md:gap-20 md:mt-0 md:mx-20">
         <div>
           <img src="scarecrow.png" alt="404-Scarecrow" className="w-full" />

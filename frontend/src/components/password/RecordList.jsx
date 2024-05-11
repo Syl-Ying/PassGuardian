@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Record from "./Record.jsx";
+import { Link } from "react-router-dom";
 
 export default function RecordList() {
   const [records, setRecords] = useState([]);
@@ -34,42 +34,17 @@ export default function RecordList() {
   function recordList() {
     return records.map((record) => {
       return (
-        <Record
-          record={record}
-          deleteRecord={() => deleteRecord(record._id)}
-          key={record._id}
-        />
+        <li>
+          <Link to={`record._id`}>{record.siteurl}</Link>
+        </li>
       );
     });
   }
 
   // display table with the records of passwords
   return (
-    <div className="overflow-hidden border rounded-lg">
-    <div className="relative w-full overflow-auto">
-        <table className="w-full text-sm caption-bottom">
-        <thead className="[&amp;_tr]:border-b">
-            <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-            <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                Site
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                UserName
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                LastUpdated
-            </th>
-            <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                Action
-            </th>
-            </tr>
-        </thead>
-
-        <tbody className="[&amp;_tr:last-child]:border-0">
-            {recordList()}
-        </tbody>
-        </table>
-    </div>
+    <div className="relative w-full overflow-auto border rounded-lg">
+      {recordList()}
     </div>
   );
 }

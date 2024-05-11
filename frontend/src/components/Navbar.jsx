@@ -49,7 +49,7 @@ const Navbar = () => {
                         Home
                     </NavLink>
 
-                    <NavLink to="/password" style={isActive('/password')} className="block mt-4 text-white md:inline-block md:mt-0 hover:text-[#99f6e4]">
+                    <NavLink to="/passwords" style={isActive('/password')} className="block mt-4 text-white md:inline-block md:mt-0 hover:text-[#99f6e4]">
                         Passwords
                     </NavLink>
                 </div>
