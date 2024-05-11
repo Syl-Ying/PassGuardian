@@ -1,5 +1,7 @@
 # PassGuardian
 PassGuardian is a password management website. You can use it to create, edit, delete and share your website credentials securely.
+Website: 
+It may take a while to open the website for the first time since the deployment uses render's free service.
 ## Web Preview
 ![Web Email Registration]()
 ![Web HomePage]()
