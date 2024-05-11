@@ -1,5 +1,4 @@
 import React from 'react'
-import Footer from "./Footer.jsx";
 import Navbar from './Navbar.jsx';
 
 export default function Layout({ children }) {
@@ -9,7 +8,6 @@ export default function Layout({ children }) {
         <div className='absolute flex-grow w-screen top-21'>
             {children}
         </div>
-        <Footer />
     </div>
   )
 }
