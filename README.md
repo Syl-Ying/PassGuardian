@@ -3,12 +3,18 @@ PassGuardian is a password management website. You can use it to create, edit, d
 Website: 
 It may take a while to open the website for the first time since the deployment uses render's free service.
 ## Web Preview
-![Web Email Registration]()
-![Web HomePage]()
-![Web PasswordPage]()
+<img width="700" alt="webHomePAGE1" src="https://github.com/Syl-Ying/PassGuardian/assets/25902997/22e71338-b6b3-40b6-a664-ffdbf56039b5">
+<img width="700" alt="webHomePAGE2" src="https://github.com/Syl-Ying/PassGuardian/assets/25902997/8b9c3396-cede-48c4-8572-2594e01a9ec0">
+<img width="700" alt="webHomePAGE3" src="https://github.com/Syl-Ying/PassGuardian/assets/25902997/5f14fac2-1e96-4b14-854b-1fd9a8d3697c">
+<img width="700" alt="Email Registration" src="https://github.com/Syl-Ying/PassGuardian/assets/25902997/a6bccf2e-a564-4c31-b0e9-c8e7fc772beb">
+
+<img width="700" alt="PasswordPage" src="">
+
 ## Mobile Preview
-![Mobile HomePage]()
-![Mobile PasswordPage]()
+<img width="250" alt="mobileHomePage1(iPhone 14 Pro Max)" src="https://github.com/Syl-Ying/PassGuardian/assets/25902997/404520f6-4d3c-41d2-a3a3-5441f8b90b0a">
+<img width="250" alt="mobileHomePage1(iPhone 14 Pro Max)" src="https://github.com/Syl-Ying/PassGuardian/assets/25902997/0a7a2f75-5ec2-403c-bdf8-f59a980431a8">
+<img width="250" alt="Mobile PasswordPage(iPhone 14 Pro Max)" src="">
+
 ## Features
 - **JWT Authentication:** PassGuardian uses JWT tokens and cookies to remember the user's sign-in status securely.
 - **Responsive Design:** Enjoy a seamless experience across both mobile and web platforms with PassGuardian's responsive design.
