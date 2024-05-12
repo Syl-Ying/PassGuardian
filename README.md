@@ -17,11 +17,11 @@ It may take a while to open the website for the first time since the deployment 
 
 ## Features
 - **JWT Authentication:** PassGuardian uses JWT tokens and cookies to remember the user's sign-in status securely.
-- **Responsive Design:** Enjoy a seamless experience across both mobile and web platforms with PassGuardian's responsive design.
-- **Encrypted Password Storage:** Password lists are securely stored in MongoDB, encrypted using crypto and Advanced Encryption Standard (AES) 256 CTR algorithms to ensure maximum security.
-- **Auto-generate Passwords:** PassGuardian offers a convenient feature to auto-generate strong passwords for your accounts.
-- **Copy and Obfuscate Passwords:** Easily copy passwords to your clipboard for quick use and obscure them from prying eyes for added security.
-- **Password Sharing:** Share passwords securely with other users, allowing for convenient collaboration while maintaining data security.
+- **Encrypted Password Storage:** Password lists are securely stored in MongoDB, encrypted using crypto and Advanced Encryption Standard (AES) 256 CTR algorithms.
+- **Auto-generate Passwords:** User can customize digit, symbol and character options to auto-generate a password
+- **Copy and Obfuscate Passwords:** Easily copy passwords to the clipboard for quick use and obscure them from prying eyes for added security.
+- **Password Sharing:** Share passwords securely with other users while maintaining data security.
+- **Responsive Design:** Responsive with both mobile and web platforms. Offers an error page.
 
    
 ## Installation

@@ -110,27 +110,35 @@ export default function Record() {
   
   // display form that takes input from user
   return (
-    <div id="contact">
+    <div id="record">
       <ToastContainer />
-      <div className="pb-12 border-b gap-x-8 gap-y-10 border-slate-900/10">
-        <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
+      <div>
+        <div>
+          {/* Website logo */}
+          <div>
+            <img
+              key={record.avatar}
+              src={record.avatar || null}
+            />
+          </div>
+
           {/* site */}
           <div>
             <h1>
-              {form.siteurl}
+              {record.siteurl}{" "}
               <Favorite record={record} />
             </h1>
           </div>
           
           {/* Username */}
-          <div className="sm:col-span-4">
+          <div>
             <label htmlFor="username"  className="block text-sm font-medium leading-6 text-slate-900">
               Username
             </label>
             <div className="mt-2">
               <div className="flex items-center rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                 <input type="text" name="username" id="username"
-                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  className=" placeholder:text-slate-400"
                   placeholder="username" value={form.username}
                   readOnly
                 />
