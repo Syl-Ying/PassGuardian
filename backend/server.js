@@ -16,7 +16,10 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI, {})
+const option = {
+     socketTimeoutMS: 30000,
+};
+mongoose.connect(process.env.MONGO_URI, option)
         .then(() => console.log("DB Connected"))
         .catch((err) => console.log("DB Connection Error => ", err));
 
